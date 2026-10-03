@@ -1,0 +1,221 @@
+@use 'variables' as *;
+@use 'mixin' as *;
+
+// ============================================================
+// Contact Page（お問い合わせページ）
+// ============================================================
+.contact-page {
+
+    .hero {
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #00000066;
+        }
+
+        &__image {
+            width: 1440px;
+            max-width: none;
+            height: auto;
+            display: block;
+        }
+
+        &__title {
+            position: absolute;
+            z-index: 1;
+            top: 164.5px;
+            left: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 40px 13px 40px;
+            border: 1px solid $color-white;
+            background-color: rgba(255, 255, 255, 0.698);
+            font-size: 36px;
+            font-weight: 700;
+            color: $color-gray;
+            white-space: nowrap;
+
+            @include tablet {
+                top: 187.5px;
+                left: 32px;
+                width: 296px;
+                height: 66px;
+                padding: 10px 40px 13px 40px;
+            }
+
+            @include sp {
+                font-size: 28px;
+                line-height: 100%;
+            }
+        }
+    }
+
+    .contact-content {
+        margin-top: 120px;
+        margin-bottom: 96px;
+
+        @include tablet {
+            margin-top: 88px;
+            margin-bottom: 88px;
+        }
+    }
+
+    .contact-form {
+        display: flex;
+        align-items: flex-start;
+        gap: 169px;
+
+        @include tablet {
+            flex-direction: column;
+            align-items: center;
+            gap: 88px;
+            width: 100%;
+            max-width: 683px;
+            margin: 0 auto;
+        }
+
+        &__heading {
+            flex-shrink: 0;
+            font-size: 32px;
+            font-weight: 500;
+            font-style: medium;
+            line-height: 1.4;
+            color: $color-gray;
+
+            @include tablet {
+                width: 100%;
+                max-width: 560px;
+                text-align: center;
+            }
+
+            @include sp {
+                text-align: left;
+            }
+        }
+
+        &__form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            @include tablet {
+                flex: none;
+                width: 100%;
+                max-width: 560px;
+            }
+        }
+
+        &__submit {
+            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 220px;
+            padding: 10px 16px;
+        }
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: none;
+        padding: 0;
+        margin: 0;
+
+        &__label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 16px;
+            font-weight: 700;
+            font-style: bold;
+            color: $color-gray;
+        }
+
+        // legendはflexのgap計算から除外されるブラウザ仕様のため、margin-bottomで補う
+        legend.form-field__label {
+            margin-bottom: 10px;
+        }
+
+        &__required {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color:#C54A49;
+            color: $color-white;
+            font-size: 12px;
+            font-weight: 700;
+            font-style: bold;
+            width: 36;
+            height: 18;
+            border-radius: 4px;
+
+        }
+
+        &__input,
+        &__textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid $color-light-gray;
+            font-family: inherit;
+            font-size: 14px;
+            color: $color-gray;
+            border-radius: 4px;
+
+            &::placeholder {
+                color: $color-light-gray;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: $color-gray;
+            }
+        }
+
+        &__textarea {
+            border-color: $color-light-gray;
+        }
+
+        &__textarea {
+            resize: vertical;
+        }
+
+        &__radios {
+            display: flex;
+            gap: 24px;
+        }
+
+        &__radio {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: $color-gray;
+            cursor: pointer;
+
+            input {
+                accent-color: $color-gray;
+            }
+        }
+
+        &__checkbox {
+            align-self: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: $color-gray;
+            cursor: pointer;
+
+            input {
+                accent-color: $color-gray;
+            }
+        }
+    }
+}

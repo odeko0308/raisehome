@@ -1,0 +1,430 @@
+@use 'variables' as *;
+@use 'mixin' as *;
+
+// Container
+// 中身の実幅が1080pxになるよう、1440px幅の時にpaddingが180pxになる
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 fluid(834, 1440, 32, 180);
+    gap: 40px;
+
+    @include tablet {
+        padding: 0 fluid(375, 834, 20, 32);
+    }
+}
+
+// Section 共通
+.section {
+    position: relative;
+
+    &__title {
+        font-family: 'Gruppo', sans-serif;
+        font-size: fluid(375, 834, 64, 160);
+        font-weight: 400;
+        line-height: fluid(375, 834, 64, 155);
+        position: absolute;
+        top: fluid(375, 834, 40, 56);
+    }
+}
+
+// ============================================================
+// SERVICE
+// タイトル: top 56px, height 155px → 下端 211px
+// コンテンツ: top 251px → padding-top: 251px
+// ============================================================
+.service {
+    padding: 251px 0 96px;
+
+    @include tablet {
+        padding-top: fluid(375, 834, 144, 259);
+        padding-bottom: fluid(375, 834, 55.65, 87.92);
+    }
+
+    .section__title {
+        color: $color-blue-gray;
+        left: fluid(834, 1440, 24, 172);
+
+        @include tablet {
+            left: fluid(375, 834, 20, 24);
+        }
+    }
+
+    &__lead {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    &__subtitle {
+        font-size: fluid(375, 834, 28, 32);
+        font-weight: 500;
+        line-height: fluid(375, 834, 42, 56);
+        color: $color-gray;
+        text-align: center;
+    }
+
+    &__text {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 175%;
+        text-align: center;
+        color: $color-gray;
+    }
+
+    &__list {
+        display: flex;
+        gap: 40px;
+        margin-top: 40px;
+
+        @include tablet {
+            gap: 24px;
+        }
+
+        @include sp {
+            flex-direction: column;
+        }
+    }
+
+    &__item {
+        position: relative;
+        flex: 1;
+    }
+
+    &__label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: max-content;
+        padding: 10px 16px;
+        background: rgba(255, 255, 255, 0.698);
+        border: 1px solid $color-white;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 100%;
+        color: $color-gray;
+        text-align: center;
+        white-space: nowrap;
+
+        @include tablet {
+            font-size: 24px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+// ============================================================
+// WORKS
+// ============================================================
+.works {
+    position: relative;
+    padding: 251px 0 96px;
+
+    @include tablet {
+        padding-top: fluid(375, 834, 144, 259);
+        padding-bottom: fluid(375, 834, 90, 88);
+    }
+
+    background-image: url('../images/Works%201.jpg');
+    background-size: 100% 931px;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    &__title {
+        font-family: 'Gruppo', sans-serif;
+        font-size: fluid(375, 834, 64, 160);
+        font-weight: 400;
+        line-height: fluid(375, 834, 64, 155);
+        color: $color-light-gray;
+        position: absolute;
+        top: fluid(375, 834, 40, 56);
+        left: fluid(834, 1440, 24, 176);
+        z-index: 1;
+
+        @include tablet {
+            left: fluid(375, 834, 20, 24);
+        }
+    }
+
+    &__grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 370fr 345fr 345fr;
+        grid-template-rows: repeat(2, 1fr);
+        height: fluid(834, 1440, 320.01, 444);
+        gap: 8px;
+
+        @include sp {
+            display: flex;
+            height: 218px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    &__item {
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @include sp {
+            flex: 0 0 345px;
+        }
+
+        &--large {
+            grid-column: 1;
+            grid-row: 1 / 3;
+
+            @include sp {
+                flex: 0 0 180.37px;
+            }
+        }
+    }
+
+    &__scrollbar {
+        display: none;
+        position: absolute;
+        top: 384px;
+        left: 20px;
+        width: 335px;
+        height: 10px;
+        background-color: $color-white;
+        border-radius: 24px;
+        z-index: 1;
+
+        @include sp {
+            display: block;
+        }
+    }
+
+    &__scrollbar-thumb {
+        width: 73px;
+        height: 10px;
+        background-color: #F7B000;
+        border-radius: 24px;
+    }
+}
+
+// ============================================================
+// COMPANY
+// ============================================================
+.company {
+    padding: 251px 0 96px;
+
+    @include tablet {
+        padding-top: fluid(375, 834, 144, 259);
+        padding-bottom: 88px;
+    }
+
+    @include company-collapse {
+        padding-bottom: 66px;
+    }
+
+    .section__title {
+        color: $color-blue-gray;
+        left: fluid(834, 1440, 24, 173);
+
+        @include tablet {
+            left: fluid(375, 834, 20, 24);
+        }
+    }
+
+    &__inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 40px;
+
+        @include tablet {
+            gap: 24px;
+        }
+
+        @include company-collapse {
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+    }
+
+    &__image {
+        display: block;
+        width: fluid(834, 1440, 373, 560);
+        height: fluid(834, 1440, 223.13, 335);
+        flex-shrink: 0;
+
+        @include tablet {
+            width: fluid(375, 834, 335, 373);
+            height: fluid(375, 834, 200.40, 223.13);
+        }
+
+        @include company-collapse {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__content {
+        flex: 1;
+        min-width: 0;
+
+        @include company-collapse {
+            width: 100%;
+        }
+    }
+
+    &__subtitle {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 1.75;
+    }
+
+    &__text {
+        margin-top: 16px;
+        font-weight: 400;
+        line-height: 1.75;
+        color: $color-light-gray;
+
+        @include tablet {
+            margin-top: 24px;
+        }
+
+        @include company-collapse {
+            text-align: center;
+        }
+    }
+
+    &__links {
+        display: flex;
+        gap: fluid(834, 1440, 24, 40);
+        margin-top: 40px;
+
+        .btn--outline {
+            width: fluid(834, 1440, 174.5, 220);
+        }
+
+        @include tablet {
+            margin-top: 24px;
+        }
+
+        @include company-collapse {
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin-top: 40px;
+
+            .btn--outline {
+                width: 220px;
+            }
+        }
+    }
+}
+
+// ============================================================
+// CONTACT
+// ============================================================
+.contact {
+    position: relative;
+    padding: 251px 0 96px;
+    background-image: url('../images/Contact.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: $color-gray;
+
+    @include tablet {
+        padding-top: fluid(375, 834, 144, 259);
+        padding-bottom: fluid(375, 834, 56, 88);
+    }
+
+    &__title {
+        font-family: 'Gruppo', sans-serif;
+        font-size: fluid(375, 834, 64, 160);
+        font-weight: 400;
+        line-height: fluid(375, 834, 64, 155);
+        color: $color-light-gray;
+        position: absolute;
+        top: fluid(375, 834, 40, 56);
+        left: fluid(834, 1440, 24, 174);
+        z-index: 1;
+
+        @include tablet {
+            left: fluid(375, 834, 20, 24);
+        }
+    }
+
+    &__inner {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 48px 76px;
+        background-color: rgba(255, 255, 255, 0.698);
+
+        @include tablet {
+            width: fluid(375, 834, 335, 600);
+            padding: 48px fluid(375, 834, 16, 76);
+        }
+    }
+
+    &__subtitle {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 140%;
+        letter-spacing: 0.18em;
+
+        @include sp {
+            font-size: 32px;
+        }
+
+        span {
+            @include contact-subtitle-break {
+                display: block;
+            }
+        }
+    }
+
+    &__text {
+        margin-top: 32px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: 0;
+
+        @include contact-text-wrap {
+            width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__btn {
+        margin-top: 32px;
+        padding: 16px 60px;
+
+        @include sp {
+            width: 220px;
+            padding: 10px 16px;
+        }
+    }
+}

@@ -1,0 +1,511 @@
+@use 'variables' as *;
+@use 'mixin' as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Noto Sans JP", sans-serif;
+    color: $color-gray;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+// ============================================================
+// Button（再利用可能なボタンコンポーネント）
+// ============================================================
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 40px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid $color-gray;
+    transition: background-color 0.3s, color 0.3s;
+
+    &--outline {
+        width: 220px;
+        padding: 10px 16px;
+        background-color: transparent;
+        color: $color-gray;
+
+        &:hover {
+            background-color: $color-gray;
+            color: $color-white;
+        }
+    }
+
+    &--filled {
+        background-color: $color-gray;
+        color: $color-white;
+
+        &:hover {
+            background-color: $color-white;
+            color: $color-gray;
+        }
+    }
+}
+
+.btn__arrow {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 6px;
+}
+
+// ============================================================
+// Header
+// ============================================================
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: rgba(255, 255, 255, 0.698);
+    z-index: 30;
+
+    @include sp {
+        height: 56px;
+    }
+
+    body.is-menu-open & {
+        background-color: transparent;
+    }
+
+    &__inner {
+        padding-left: 60px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        @include tablet {
+            padding-left: 27px;
+        }
+
+        @include sp {
+            padding-left: 20px;
+        }
+    }
+}
+
+.logo {
+    color: $color-gray;
+
+    svg {
+        display: block;
+
+        @include sp {
+            width: 228.667px;
+            height: 25.2px;
+        }
+    }
+
+    body.is-menu-open & {
+        visibility: hidden;
+    }
+}
+
+.main-nav {
+    margin-left: auto;
+    align-self: stretch;
+
+    &__list {
+        display: flex;
+        height: 100%;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 20px;
+        font-size: 16px;
+        font-weight: 400;
+        color: $color-gray;
+        white-space: nowrap;
+    }
+
+    &__item:last-child &__link {
+        padding: 0 12px;
+        background-color: $color-gray;
+        color: $color-white;
+    }
+
+    @include nav-collapse {
+        display: none;
+    }
+
+    body.is-menu-open & {
+        display: none;
+    }
+}
+
+// ============================================================
+// Menu Toggle（ハンバーガーボタン）
+// ============================================================
+.menu-toggle {
+    display: none;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin-left: auto;
+    border: none;
+    background-color: $color-gray;
+    cursor: pointer;
+
+    @include nav-collapse {
+        display: block;
+    }
+
+    @include sp {
+        width: 56px;
+        height: 56px;
+    }
+
+    &__bar,
+    &__bar::before,
+    &__bar::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 24px;
+        height: 2px;
+        background-color: $color-white;
+        transform: translateX(-50%);
+        transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease, width 0.3s ease;
+    }
+
+    &__bar {
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &::before {
+            top: -7px;
+        }
+
+        &::after {
+            top: 7px;
+        }
+    }
+
+    &.is-active {
+        .menu-toggle__bar {
+            background-color: transparent;
+
+            // ×の各線は幅24px・高さ16pxの対角線として引く
+            // （長さ = √(24²+16²) ≈ 28.844px、角度 = atan(16/24) ≈ 33.69deg）
+            &::before {
+                top: 0;
+                width: 28.844px;
+                transform: translateX(-50%) rotate(33.69deg);
+            }
+
+            &::after {
+                top: 0;
+                width: 28.844px;
+                transform: translateX(-50%) rotate(-33.69deg);
+            }
+        }
+    }
+}
+
+// ============================================================
+// Mobile Nav（スマホ版メニューパネル）
+// ============================================================
+.mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+
+    @include nav-collapse {
+        display: block;
+    }
+
+    &.is-active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 252px;
+        height: 100%;
+        background-color: #FFFFFFE5;
+    }
+
+    &__list {
+        position: absolute;
+        top: 99px;
+        left: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        width: 172px;
+        height: 59px;
+        padding: 16px 32px;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 100%;
+        color: $color-gray;
+    }
+
+    &__list li:last-child &__link {
+        background-color: $color-gray;
+        color: $color-white;
+    }
+}
+
+// ============================================================
+// Main Visual
+// ============================================================
+.main-visual {
+    position: relative;
+
+    &__slider {
+        position: relative;
+        overflow: hidden;
+        height: fluid(375, 834, 640, 835);
+    }
+
+    &__slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+
+        &.is-active {
+            opacity: 1;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__dots {
+        position: absolute;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 2;
+    }
+
+    &__dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background-color: $color-white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &.is-active {
+            background-color: $color-gray;
+        }
+    }
+
+    &__title {
+        position: absolute;
+        top: fluid(375, 834, 276.78, 333);
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: fluid(375, 834, 7.49, 10);
+        padding: fluid(375, 834, 13, 10) fluid(375, 834, 32, 40) 16px;
+        background-color: rgba(255, 255, 255, 0.698);
+        border: fluid(375, 834, 0.75, 1) solid $color-white;
+        font-size: fluid(375, 834, 28, 48);
+        font-weight: 700;
+        line-height: normal;
+        text-align: center;
+        color: $color-gray;
+
+        span {
+            white-space: nowrap;
+        }
+    }
+
+    &__raise-home {
+        position: absolute;
+        width: fluid(375, 834, 161, 337);
+        height: fluid(375, 834, 57, 118);
+        top: fluid(375, 834, 74.22, 110);
+        left: fluid(375, 834, 181, 257);
+    }
+
+    &__scroll {
+        position: absolute;
+        top: fluid(375, 834, 494, 595);
+        left: fluid(375, 834, 17, 10);
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: fluid(375, 834, 7.1, 4.5);
+    }
+
+    &__scroll-text {
+        font-family: 'Gruppo', sans-serif;
+        font-size: fluid(375, 834, 16, 28);
+        font-weight: 400;
+        line-height: 100%;
+        color: $color-white;
+    }
+
+    &__scroll::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: fluid(375, 834, 103.9, 160);
+        border-left: 1px solid $color-white;
+    }
+}
+
+// ============================================================
+// Footer
+// ============================================================
+.footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: $color-gray;
+    height: 185px;
+
+    @include footer-tablet-collapse {
+        height: auto;
+        padding-top: 64px;
+        padding-bottom: 24px;
+    }
+
+    @include sp {
+        padding-top: 56px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        @include footer-tablet-collapse {
+            flex-direction: column;
+            justify-content: center;
+            gap: 56px;
+        }
+    }
+
+    &__logo {
+        color: $color-white;
+
+        svg {
+            display: block;
+        }
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        gap: 64px;
+
+        @include footer-sp-collapse {
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    &__nav-list {
+        display: flex;
+        gap: 64px;
+
+        @include footer-sp-collapse {
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+    &__nav-link {
+        font-size: 16px;
+        color: $color-white;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    &__social {
+        display: flex;
+        gap: 24px;
+    }
+
+    &__social-link {
+        display: block;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    &__copyright {
+        position: absolute;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+
+        @include footer-tablet-collapse {
+            position: static;
+            transform: none;
+            font-size: 13px;
+        }
+    }
+}

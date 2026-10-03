@@ -1,0 +1,95 @@
+@use 'sass:math';
+
+// Mixins
+
+// ブレークポイント
+// Figmaのデザイン幅(タブレット834px / スマホ375px)をそのままmax-widthとして使う
+@mixin tablet {
+    @media (max-width: 834px) {
+        @content;
+    }
+}
+
+@mixin sp {
+    @media (max-width: 375px) {
+        @content;
+    }
+}
+
+// header内のロゴ+ナビが収まらなくなる実測幅（609px）を基準に、
+// ハンバーガーメニューへの切り替えだけを制御する
+@mixin nav-collapse {
+    @media (max-width: 609px) {
+        @content;
+    }
+}
+
+// COMPANYセクションの画像+テキストが横並びのままだと、
+// ボタンの文字と矢印アイコンが重なり始める実測幅（777px）を基準に、
+// 画像とcontentを縦並びに切り替えるタイミングだけを制御する
+@mixin company-collapse {
+    @media (max-width: 777px) {
+        @content;
+    }
+}
+
+// CONTACTセクションの「家づくりの無料相談」が1行に収まらなくなる実測幅（625px）を基準に、
+// 「家づくりの」「無料相談」の間で意図した位置に改行を入れるタイミングだけを制御する
+@mixin contact-subtitle-break {
+    @media (max-width: 625px) {
+        @content;
+    }
+}
+
+// CONTACTセクションの「毎日ご相談を〜」が1行に収まらなくなる実測幅（831px）を基準に、
+// 意図した位置で折り返るよう幅を狭めるタイミングだけを制御する
+@mixin contact-text-wrap {
+    @media (max-width: 831px) {
+        @content;
+    }
+}
+
+// footerのlogoとnav-linkの間隔が64pxを下回る実測幅（1022px）を基準に、
+// タブレット用の縦並びレイアウトに切り替えるタイミングだけを制御する
+// （896pxではnav-linkの文字が折り返り始めるが、より手前のこちらを優先する）
+@mixin footer-tablet-collapse {
+    @media (max-width: 1022px) {
+        @content;
+    }
+}
+
+// footerのnav-list(横並び)が収まらずnav-linkの文字が折り返り始める実測幅（598px）を基準に、
+// スマホ用の縦並びレイアウトに切り替えるタイミングだけを制御する
+@mixin footer-sp-collapse {
+    @media (max-width: 598px) {
+        @content;
+    }
+}
+
+// ACCESSページのtransit__label/textを折り返さない状態で測った時に
+// 収まらなくなる実測幅（821px）を基準に、
+// タブレット用の横並びレイアウトからスマホ用の縦並びレイアウトに切り替えるタイミングだけを制御する
+@mixin access-page-sp-collapse {
+    @media (max-width: 821px) {
+        @content;
+    }
+}
+
+// COMPANYページのoverviewセクションで「会社概要」の見出しが1行に収まらなくなる実測幅（833px）を基準に、
+// タブレット用の横並びレイアウトからスマホ用の縦並びレイアウトに切り替えるタイミングだけを制御する
+// （tableの幅が595px固定のため、834pxちょうどでしか横並びが成立しない）
+@mixin company-page-sp-collapse {
+    @media (max-width: 833px) {
+        @content;
+    }
+}
+
+// 2点のブレークポイント間で値をなめらかに線形補間するclamp()を生成する
+// （$min-val / $max-valはpx想定の単位なし数値で渡す）
+@function fluid($min-vw, $max-vw, $min-val, $max-val) {
+    $slope: math.div($max-val - $min-val, $max-vw - $min-vw);
+    $intercept: $min-val - $slope * $min-vw;
+    $lower: min($min-val, $max-val);
+    $upper: max($min-val, $max-val);
+    @return clamp(#{$lower}px, #{$intercept}px + #{$slope * 100}vw, #{$upper}px);
+}
