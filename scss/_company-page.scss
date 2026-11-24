@@ -6,54 +6,11 @@
 // ============================================================
 .company-page {
 
-    .hero {
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: #00000066;
-        }
-
-        &__image {
-            width: 1440px;
-            max-width: none;
-            height: auto;
-            display: block;
-        }
-
-        &__title {
-            position: absolute;
-            z-index: 1;
-            top: 164.5px;
-            left: 180px;
-            width: 224px;
-            height: 76px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 10px 40px 13px 40px;
-            border: 1px solid $color-white;
-            background-color: rgba(255, 255, 255, 0.698);
-            font-size: 36px;
-            font-weight: 700;
-            color: $color-gray;
-            white-space: nowrap;
-
-            @include tablet {
-                top: 182.5px;
-                left: 32px;
-                width: 208px;
-                height: 70px;
-            }
-
-            @include sp {
-                font-size: 28px;
-                line-height: 100%;
-            }
+    .hero__title {
+        @include tablet {
+            top: 182.5px;
+            left: 32px;
+            font-size: 32px;
         }
     }
 
@@ -62,12 +19,8 @@
         margin-bottom: 96px;
 
         @include tablet {
-            margin-top: 88px;
-        }
-
-        @include company-page-sp-collapse {
-            margin-top: 56px;
-            margin-bottom: 56px;
+            margin-top: fluid(375, 834, 56, 88);
+            margin-bottom: fluid(375, 834, 56, 96);
         }
 
         .container {
@@ -76,11 +29,7 @@
             gap: 120px;
 
             @include tablet {
-                gap: 88px;
-            }
-
-            @include company-page-sp-collapse {
-                gap: 56px;
+                gap: fluid(375, 834, 56, 88);
             }
         }
     }
@@ -88,15 +37,12 @@
     .philosophy,
     .history {
         display: flex;
+        flex-wrap: wrap;
         gap: 40px;
 
         @include tablet {
             gap: 24px;
             align-items: flex-start;
-        }
-
-        @include company-page-sp-collapse {
-            flex-direction: column;
         }
 
         &__image {
@@ -108,11 +54,7 @@
             @include tablet {
                 width: auto;
                 flex: 1;
-                min-width: 0;
-            }
-
-            @include company-page-sp-collapse {
-                width: 100%;
+                min-width: 280px;
             }
         }
 
@@ -126,11 +68,7 @@
             @include tablet {
                 width: auto;
                 flex: 1;
-                min-width: 0;
-            }
-
-            @include company-page-sp-collapse {
-                width: 100%;
+                min-width: 280px;
             }
         }
 
@@ -151,16 +89,12 @@
 
     .overview {
         display: flex;
+        flex-wrap: wrap;
         align-items: flex-start;
         gap: 232px;
 
         @include tablet {
             gap: 47px;
-        }
-
-        @include company-page-sp-collapse {
-            flex-direction: column;
-            gap: 32px;
         }
 
         &__heading {
@@ -178,11 +112,9 @@
             border-top: 1px solid $color-gray;
 
             @include tablet {
-                width: 595px;
-            }
-
-            @include company-page-sp-collapse {
                 width: 100%;
+                flex: 1;
+                min-width: 280px;
             }
 
             th,
@@ -206,7 +138,7 @@
                 color: $color-gray;
             }
 
-            @include company-page-sp-collapse {
+            @include tablet {
                 display: block;
 
                 tbody,

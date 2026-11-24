@@ -37,17 +37,20 @@ ul {
 // ============================================================
 .btn {
     position: relative;
-    display: inline-block;
-    padding: 10px 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    padding: 10px 16px;
     font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
     text-align: center;
     border: 1px solid $color-gray;
     transition: background-color 0.3s, color 0.3s;
 
     &--outline {
-        width: 220px;
-        padding: 10px 16px;
-        background-color: transparent;
+        background-color: $color-white;
         color: $color-gray;
 
         &:hover {
@@ -58,11 +61,12 @@ ul {
 
     &--filled {
         background-color: $color-gray;
+        border: none;
         color: $color-white;
 
         &:hover {
-            background-color: $color-white;
-            color: $color-gray;
+            background-color: $color-orange;
+            color: $color-white;
         }
     }
 }
@@ -148,12 +152,20 @@ ul {
         font-weight: 400;
         color: $color-gray;
         white-space: nowrap;
+
+        &:hover {
+            background-color: $color-white;
+        }
     }
 
     &__item:last-child &__link {
         padding: 0 12px;
         background-color: $color-gray;
         color: $color-white;
+
+        &:hover {
+            background-color: $color-orange;
+        }
     }
 
     @include nav-collapse {
@@ -326,13 +338,13 @@ ul {
         bottom: 24px;
         transform: translateX(-50%);
         display: flex;
-        gap: 10px;
+        gap: 16px;
         z-index: 2;
     }
 
     &__dot {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         padding: 0;
         border: none;
         border-radius: 50%;
@@ -390,7 +402,7 @@ ul {
 
     &__scroll-text {
         font-family: 'Gruppo', sans-serif;
-        font-size: fluid(375, 834, 16, 28);
+        font-size: fluid(375, 834, 16, 24);
         font-weight: 400;
         line-height: 100%;
         color: $color-white;
@@ -400,8 +412,53 @@ ul {
         content: '';
         display: block;
         width: 0;
-        height: fluid(375, 834, 103.9, 160);
-        border-left: 1px solid $color-white;
+        height: fluid(375, 834, 103.9, 200);
+        border-left: 1.5px solid $color-white;
+    }
+}
+
+// ============================================================
+// Hero（下層ページ共通のメインビジュアル）
+// ============================================================
+.hero {
+    position: relative;
+    overflow: hidden;
+    height: 372px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #00000066;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__title {
+        position: absolute;
+        z-index: 1;
+        top: 164.5px;
+        left: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 40px 13px 40px;
+        border: 1px solid $color-white;
+        background-color: rgba(255, 255, 255, 0.698);
+        font-size: 36px;
+        font-weight: 700;
+        color: $color-gray;
+        white-space: nowrap;
+
+        @include sp {
+            font-size: 28px;
+            line-height: 100%;
+        }
     }
 }
 
@@ -413,17 +470,7 @@ ul {
     display: flex;
     align-items: center;
     background-color: $color-gray;
-    height: 185px;
-
-    @include footer-tablet-collapse {
-        height: auto;
-        padding-top: 64px;
-        padding-bottom: 24px;
-    }
-
-    @include sp {
-        padding-top: 56px;
-    }
+    padding: 32px 0;
 
     .container {
         width: 100%;
@@ -431,15 +478,11 @@ ul {
 
     &__inner {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 56px;
         width: 100%;
-
-        @include footer-tablet-collapse {
-            flex-direction: column;
-            justify-content: center;
-            gap: 56px;
-        }
     }
 
     &__logo {
@@ -452,23 +495,27 @@ ul {
 
     &__links {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
-        gap: 64px;
+        column-gap: 64px;
+        row-gap: 16px;
 
-        @include footer-sp-collapse {
+        @include sp {
             flex-direction: column;
-            gap: 16px;
         }
     }
 
     &__nav-list {
         display: flex;
-        gap: 64px;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 64px;
+        row-gap: 16px;
 
-        @include footer-sp-collapse {
+        @include sp {
             flex-direction: column;
             align-items: center;
-            gap: 16px;
         }
     }
 
@@ -495,17 +542,10 @@ ul {
     }
 
     &__copyright {
-        position: absolute;
-        top: 150px;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        margin-top: 24px;
+        text-align: center;
         font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
-
-        @include footer-tablet-collapse {
-            position: static;
-            transform: none;
-            font-size: 13px;
-        }
     }
 }

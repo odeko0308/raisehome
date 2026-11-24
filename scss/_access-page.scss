@@ -6,51 +6,10 @@
 // ============================================================
 .access-page {
 
-    .hero {
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: #00000066;
-        }
-
-        &__image {
-            width: 1440px;
-            max-width: none;
-            height: auto;
-            display: block;
-        }
-
-        &__title {
-            position: absolute;
-            z-index: 1;
-            top: 164.5px;
-            left: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 40px 13px 40px;
-            border: 1px solid $color-white;
-            background-color: rgba(255, 255, 255, 0.698);
-            font-size: 36px;
-            font-weight: 700;
-            color: $color-gray;
-            white-space: nowrap;
-
-            @include tablet {
-                top: 182.5px;
-                left: 32px;
-                width: 208px;
-                height: 70px;
-            }
-
-            @include sp {
-                font-size: 28px;
-                line-height: 100%;
-            }
+    .hero__title {
+        @include tablet {
+            top: 182.5px;
+            left: 32px;
         }
     }
 
@@ -59,28 +18,20 @@
         margin-bottom: 96px;
 
         @include tablet {
-            margin-top: 88px;
-            margin-bottom: 88px;
-        }
-
-        @include access-page-sp-collapse {
-            margin-top: 56px;
-            margin-bottom: 56px;
+            margin-top: fluid(375, 834, 56, 88);
+            margin-bottom: fluid(375, 834, 56, 88);
         }
     }
 
     .transit {
         display: flex;
-        gap: 169px;
+        flex-wrap: wrap;
+        column-gap: 169px;
+        row-gap: 32px;
 
         @include tablet {
             justify-content: space-between;
-            gap: 0;
-        }
-
-        @include access-page-sp-collapse {
-            flex-direction: column;
-            gap: 32px;
+            column-gap: 0;
         }
 
         &__heading {
@@ -91,10 +42,9 @@
 
         &__list {
             flex: 1;
+            min-width: 280px;
 
             @include tablet {
-                flex: 1;
-                min-width: 0;
                 display: flex;
                 flex-direction: column;
                 gap: 24px;
@@ -103,13 +53,22 @@
 
         &__item {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 24px;
             padding: 24px 0;
-            border-bottom: 1px solid $color-blue-gray;
+            border-bottom: 1px solid $color-gray;
+
+            &:first-child {
+                padding-top: 0;
+            }
 
             &:last-child {
                 border-bottom: none;
+
+                .transit__icon {
+                    width: 59px;
+                    height: 47px;
+                }
             }
         }
 
@@ -139,14 +98,10 @@
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
         @include tablet {
-            margin-bottom: 88px;
+            margin-bottom: fluid(375, 834, 0, 88);
             max-width: 770px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        @include access-page-sp-collapse {
-            margin-bottom: 0;
         }
 
         &::before {

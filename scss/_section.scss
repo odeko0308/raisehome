@@ -68,6 +68,8 @@
         font-size: 16px;
         font-weight: 400;
         line-height: 175%;
+        max-width: 680px;
+        margin: 0 auto;
         text-align: center;
         color: $color-gray;
     }
@@ -131,7 +133,7 @@
         padding-bottom: fluid(375, 834, 90, 88);
     }
 
-    background-image: url('../images/Works%201.jpg');
+    background-image: url('../images/Works-01.jpg');
     background-size: 100% 931px;
     background-position: center top;
     background-repeat: no-repeat;
@@ -235,11 +237,7 @@
 
     @include tablet {
         padding-top: fluid(375, 834, 144, 259);
-        padding-bottom: 88px;
-    }
-
-    @include company-collapse {
-        padding-bottom: 66px;
+        padding-bottom: fluid(375, 834, 66, 88);
     }
 
     .section__title {
@@ -253,17 +251,14 @@
 
     &__inner {
         display: flex;
+        flex-wrap: wrap;
         align-items: flex-start;
-        gap: 40px;
+        justify-content: center;
+        column-gap: 40px;
+        row-gap: 40px;
 
         @include tablet {
-            gap: 24px;
-        }
-
-        @include company-collapse {
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
+            column-gap: 24px;
         }
     }
 
@@ -277,20 +272,11 @@
             width: fluid(375, 834, 335, 373);
             height: fluid(375, 834, 200.40, 223.13);
         }
-
-        @include company-collapse {
-            width: 100%;
-            height: auto;
-        }
     }
 
     &__content {
         flex: 1;
-        min-width: 0;
-
-        @include company-collapse {
-            width: 100%;
-        }
+        min-width: 280px;
     }
 
     &__subtitle {
@@ -300,42 +286,28 @@
     }
 
     &__text {
-        margin-top: 16px;
+        margin-top: 24px;
         font-weight: 400;
         line-height: 1.75;
-        color: $color-light-gray;
-
-        @include tablet {
-            margin-top: 24px;
-        }
-
-        @include company-collapse {
-            text-align: center;
-        }
+        color: $color-gray;
+        text-align: center;
     }
 
     &__links {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: fluid(834, 1440, 24, 40);
         margin-top: 40px;
 
         .btn--outline {
             width: fluid(834, 1440, 174.5, 220);
+            min-width: 150px;
         }
 
         @include tablet {
             margin-top: 24px;
-        }
-
-        @include company-collapse {
-            flex-direction: column;
-            align-items: center;
             gap: 24px;
-            margin-top: 40px;
-
-            .btn--outline {
-                width: 220px;
-            }
         }
     }
 }
@@ -379,6 +351,7 @@
         max-width: 600px;
         margin: 0 auto;
         padding: 48px 76px;
+        border: 1px solid $color-white;
         background-color: rgba(255, 255, 255, 0.698);
 
         @include tablet {
@@ -410,21 +383,9 @@
         font-weight: 400;
         line-height: 120%;
         letter-spacing: 0;
-
-        @include contact-text-wrap {
-            width: 280px;
-            margin-left: auto;
-            margin-right: auto;
-        }
     }
 
     &__btn {
         margin-top: 32px;
-        padding: 16px 60px;
-
-        @include sp {
-            width: 220px;
-            padding: 10px 16px;
-        }
     }
 }

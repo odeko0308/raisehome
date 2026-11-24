@@ -6,52 +6,10 @@
 // ============================================================
 .contact-page {
 
-    .hero {
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: #00000066;
-        }
-
-        &__image {
-            width: 1440px;
-            max-width: none;
-            height: auto;
-            display: block;
-        }
-
-        &__title {
-            position: absolute;
-            z-index: 1;
-            top: 164.5px;
-            left: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 40px 13px 40px;
-            border: 1px solid $color-white;
-            background-color: rgba(255, 255, 255, 0.698);
-            font-size: 36px;
-            font-weight: 700;
-            color: $color-gray;
-            white-space: nowrap;
-
-            @include tablet {
-                top: 187.5px;
-                left: 32px;
-                width: 296px;
-                height: 66px;
-                padding: 10px 40px 13px 40px;
-            }
-
-            @include sp {
-                font-size: 28px;
-                line-height: 100%;
-            }
+    .hero__title {
+        @include tablet {
+            top: 187.5px;
+            left: 32px;
         }
     }
 
@@ -83,7 +41,6 @@
             flex-shrink: 0;
             font-size: 32px;
             font-weight: 500;
-            font-style: medium;
             line-height: 1.4;
             color: $color-gray;
 
@@ -151,9 +108,8 @@
             color: $color-white;
             font-size: 12px;
             font-weight: 700;
-            font-style: bold;
-            width: 36;
-            height: 18;
+            width: 36px;
+            height: 18px;
             border-radius: 4px;
 
         }
